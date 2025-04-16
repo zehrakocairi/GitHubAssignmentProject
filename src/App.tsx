@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home/Home'
-import Detail from './pages/Detail/Detail'
+import RepositoryDetail from './pages/RepositoryDetail/RepositoryDetail'
 
 function App() {
   return (
-    <Routes>
+  <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/detail" element={<Detail />} />
+    <Route path="/repo/:owner/:name" element={<RepositoryDetail />} />
   </Routes>
   )
 }
