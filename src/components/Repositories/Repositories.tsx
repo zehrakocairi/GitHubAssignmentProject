@@ -1,17 +1,21 @@
-import { useQuery } from "@tanstack/react-query"
-import { getRepositoriesOfUser } from "../../api/repositories"
-import {GitHubRepositoryItem} from "../../models/modelStack"
-import RepositoryItem from "../RepositoryItem/RepositoryItem"
+import { useQuery } from '@tanstack/react-query';
+import { getRepositoriesOfUser } from '../../api/repositories';
+import { GitHubRepoItem } from '../../models/modelStack';
+import RepositoryItem from '../RepositoryItem/RepositoryItem';
 
-const Repositories = () => {
-  const { data, isLoading, error } = useQuery<GitHubRepositoryItem[]>({
-    queryKey: ['repos'],
-    queryFn: () => getRepositoriesOfUser('JakeWharton'),
-  })
+type Props = {
+  username?: string;
+  queryFn?: () => Promise<GitHubRepoItem[]>;
+};
 
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error loading repositories</div>
-
+const Repositories = ({ username = 'JakeWharton', queryFn }: Props) => {
+  const { data, isLoading, error } = useQuery<GitHubRepoItem[]>({
+    queryKey: ['repos', username],
+    queryFn: queryFn || (() => getRepositoriesOfUser(username)),
+  });
+  
+  if (error) return <div>Error loading repositories</div>;
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div>
       <h1>Repositories</h1>
@@ -21,7 +25,7 @@ const Repositories = () => {
         ))}
       </div>
     </div>
-  )
-  }
-  
-  export default Repositories
+  );
+};
+
+export default Repositories;
