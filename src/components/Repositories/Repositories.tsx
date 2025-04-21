@@ -1,25 +1,21 @@
-import { useQuery } from '@tanstack/react-query';
-import { getRepositoriesOfUser } from '../../api/repositories';
-import { GitHubRepoItem } from '../../models/modelStack';
-import RepositoryItem from '../RepositoryItem/RepositoryItem';
+import { useQuery } from "@tanstack/react-query";
+import { getRepositoriesOfUser } from "../../api/repositories";
+import { GitHubRepoItem } from "../../models/modelStack";
+import RepositoryItem from "../RepositoryItem/RepositoryItem";
 
-type Props = {
-  username?: string;
-  queryFn?: () => Promise<GitHubRepoItem[]>;
-};
-
-const Repositories = ({ username = 'JakeWharton', queryFn }: Props) => {
+const Repositories = ({ username = "JakeWharton" }: { username?: string }) => {
   const { data, isLoading, error } = useQuery<GitHubRepoItem[]>({
-    queryKey: ['repos', username],
-    queryFn: queryFn || (() => getRepositoriesOfUser(username)),
+    queryKey: ["repos", username],
+    queryFn: () => getRepositoriesOfUser(username),
   });
-  
-  if (error) return <div>Error loading repositories</div>;
-  if (isLoading) return <div>Loading...</div>;
+
+  if (isLoading) return <div className="text-center">Loading...</div>;
+  if (error) return <div className="text-center text-red-500">Error loading repositories</div>;
+
   return (
     <div>
-      <h1>Repositories</h1>
-      <div>
+      <h1 className="text-2xl font-semibold mb-10 mt-8 text-slate-800">Repositories</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {data?.map((repo) => (
           <RepositoryItem key={repo.id} repo={repo} />
         ))}
