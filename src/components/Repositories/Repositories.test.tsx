@@ -43,7 +43,6 @@ it('renders error message when error thrown', async () => {
 
   wrapper(<Repositories queryFn={fakeQuery} />);
 
-  console.log(screen.debug())
   const errorMsg = await screen.findByText('Error loading repositories');
   expect(errorMsg).toBeInTheDocument();
 });
