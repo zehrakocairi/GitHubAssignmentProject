@@ -3,10 +3,15 @@ import { getRepositoriesOfUser } from "../../api/repositories";
 import { GitHubRepoItem } from "../../models/modelStack";
 import RepositoryItem from "../RepositoryItem/RepositoryItem";
 
-const Repositories = ({ username = "JakeWharton" }: { username?: string }) => {
+type Props = {
+  username?: string;
+  queryFn?: () => Promise<GitHubRepoItem[]>;
+};
+
+const Repositories = ({ username = "JakeWharton", queryFn }: Props) => {
   const { data, isLoading, error } = useQuery<GitHubRepoItem[]>({
     queryKey: ["repos", username],
-    queryFn: () => getRepositoriesOfUser(username),
+    queryFn: queryFn || (() => getRepositoriesOfUser(username)),
   });
 
   if (isLoading) return <div className="text-center">Loading...</div>;
