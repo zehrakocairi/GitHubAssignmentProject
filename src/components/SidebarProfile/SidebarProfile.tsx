@@ -1,10 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "../../api/user";
 
-const SidebarProfile = () => {
+type Props = {
+  queryFn?: () => Promise<{ login: string; avatar_url: string }>;
+};
+
+const SidebarProfile = ({ queryFn }: Props) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["user"],
-    queryFn: () => getUserInfo("JakeWharton"),
+    queryFn: queryFn || (() => getUserInfo("JakeWharton")),
   });
 
   if (isLoading) return <div className="text-center">Loading...</div>;

@@ -18,29 +18,32 @@ const wrapper = (ui: React.ReactElement) => {
   );
 };
 
-it("renders repo list successfully", async () => {
-  const fakeRepos = [
-    {
-      id: 1,
-      name: "test-repo",
-      description: "some description",
-      owner: { login: "owner name", id: 999 },
-    },
-  ];
+describe("Repositories", () => {
+  it("renders repo list successfully", async () => {
+    const fakeRepos = [
+      {
+        id: 1,
+        name: "test-repo",
+        description: "some description",
+        owner: { login: "owner name", id: 999 },
+        stargazers_count: 42,
+      },
+    ];
 
-  const fakeQuery = () => Promise.resolve(fakeRepos);
+    const fakeQuery = () => Promise.resolve(fakeRepos);
 
-  wrapper(<Repositories username="zehra" queryFn={fakeQuery} />);
+    wrapper(<Repositories username="zehra" queryFn={fakeQuery} />);
 
-  expect(await screen.findByText("test-repo")).toBeInTheDocument();
-  expect(await screen.findByText("some description")).toBeInTheDocument();
-});
+    expect(await screen.findByText("test-repo")).toBeInTheDocument();
+    expect(await screen.findByText("some description")).toBeInTheDocument();
+  });
 
-it("renders error message when error thrown", async () => {
-  const fakeQuery = () => Promise.reject(new Error("Error happened!"));
+  it("renders error message when error thrown", async () => {
+    const fakeQuery = () => Promise.reject(new Error("Error happened!"));
 
-  wrapper(<Repositories queryFn={fakeQuery} />);
+    wrapper(<Repositories queryFn={fakeQuery} />);
 
-  const errorMsg = await screen.findByText("Error loading repositories");
-  expect(errorMsg).toBeInTheDocument();
+    const errorMsg = await screen.findByText("Error loading repositories");
+    expect(errorMsg).toBeInTheDocument();
+  });
 });
