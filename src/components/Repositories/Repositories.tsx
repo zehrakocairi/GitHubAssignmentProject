@@ -23,7 +23,7 @@ const Repositories = ({ username = "JakeWharton", queryFn }: Props) => {
       <h4 className="text-2xl font-semibold mb-10 mt-0 text-indigo-300 transform translate-x-[60px] translate-y-[-13px] italic">from an Awesome Man!</h4>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {data?.map((repo) => (
-          <RepositoryItem key={repo.id} repo={repo} />
+          <RepositoryItem key={repo?.id} repo={repo} />
         ))}
       </div>
     </div>

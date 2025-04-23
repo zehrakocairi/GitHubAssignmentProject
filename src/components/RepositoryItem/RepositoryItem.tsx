@@ -6,6 +6,7 @@ type Props = {
 };
 
 const RepositoryItem = ({ repo }: Props) => {
+  if (!repo) return <div className="text-center text-red-500">Error loading repository</div>;
   return (
     <Link
       to={`/repo/${repo.owner.login}/${repo.name}`}

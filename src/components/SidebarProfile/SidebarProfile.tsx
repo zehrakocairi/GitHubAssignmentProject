@@ -13,6 +13,7 @@ const SidebarProfile = ({ queryFn }: Props) => {
 
   if (isLoading) return <div className="text-center">Loading...</div>;
   if (error) return <div className="text-center text-red-500">Error loading user info</div>;
+  if (!data) return <div className="text-center text-red-500">No user data available</div>;
 
   return (
     <div className="bg-slate-50 md:min-h-[90vh] shadow-xs rounded-lg p-6 text-center">

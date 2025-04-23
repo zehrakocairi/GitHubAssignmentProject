@@ -1,25 +1,40 @@
 export const getRepositoriesOfUser = async (username: string) => {
-  return mockedRepositoriesOfUser;
-  const url = `https://api.github.com/users/${username}/repos`;
-  const res = await fetch(`${url}`);
-  if (!res.ok) throw new Error("Failed to fetch user info");
-  return res.json();
+  // return mockedRepositoriesOfUser;
+  try {
+    const url = `https://api.github.com/users/${username}/repos`;
+    const res = await fetch(`${url}`);
+    if (!res.ok) throw new Error("Failed to fetch user info");
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 export const getRepoDetail = async (owner: string, name: string) => {
-  return mockedRepoDetail;
-  const url = `https://api.github.com/repos/${owner}/${name}`;
-  const res = await fetch(`${url}`);
-  if (!res.ok) throw new Error("Failed to fetch user info");
-  return res.json();
+  try {
+    // return mockedRepoDetail;
+    const url = `https://api.github.com/repos/${owner}/${name}`;
+    const res = await fetch(`${url}`);
+    if (!res.ok) throw new Error("Failed to fetch repo detail");
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 export const getRepoCommitsDetail = async (owner: string, name: string) => {
-  return mockedCommitDetail;
-  const url = `https://api.github.com/repos/${owner}/${name}/commits`;
-  const res = await fetch(`${url}`);
-  if (!res.ok) throw new Error("Failed to fetch user info");
-  return res.json();
+  // return mockedCommitDetail;
+  try {
+    const url = `https://api.github.com/repos/${owner}/${name}/commits`;
+    const res = await fetch(`${url}`);
+    if (!res.ok) throw new Error("Failed to fetch commits of user");
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 const mockedRepositoriesOfUser = [

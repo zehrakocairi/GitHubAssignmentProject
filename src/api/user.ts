@@ -1,11 +1,16 @@
 const GITHUB_BASE_URL = import.meta.env.VITE_GITHUB_BASE_URL;
 
 export const getUserInfo = async (username: string) => {
-  return mockedUserInfo;
-  const url = `${GITHUB_BASE_URL}/users/${username}`;
-  const res = await fetch(`${url}`);
-  if (!res.ok) throw new Error("Failed to fetch user info");
-  return res.json();
+  // return mockedUserInfo;
+  try {
+    const url = `${GITHUB_BASE_URL}/users/${username}`;
+    const res = await fetch(`${url}`);
+    if (!res.ok) throw new Error("Failed to fetch user info");
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 const mockedUserInfo = {
