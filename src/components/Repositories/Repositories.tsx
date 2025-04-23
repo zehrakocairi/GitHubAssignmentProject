@@ -19,7 +19,8 @@ const Repositories = ({ username = "JakeWharton", queryFn }: Props) => {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-10 mt-8 text-slate-800">Repositories</h1>
+      <h1 className="text-2xl font-semibold mt-8 text-indigo-400">Repositories</h1>
+      <h4 className="text-2xl font-semibold mb-10 mt-0 text-indigo-300 transform translate-x-[60px] translate-y-[-13px] italic">from an Awesome Man!</h4>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {data?.map((repo) => (
           <RepositoryItem key={repo.id} repo={repo} />
